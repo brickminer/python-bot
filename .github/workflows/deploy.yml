@@ -16,12 +16,11 @@ jobs:
 
     - name: Copy file via scp
       uses: appleboy/scp-action@master
-      env:
+      with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}  
         port: ${{ secrets.PORT }}
-      with:
         source: "."
         target: "/home/bot-deploy/test-folder"
 
