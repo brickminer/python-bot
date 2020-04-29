@@ -22,14 +22,23 @@ jobs:
         password: ${{ secrets.PASSWORD }}  
         port: ${{ secrets.PORT }}
         source: "."
-        target: "/home/bot-deploy/test-folder"
+        target: "/home/bot-deploy/python-bot"
 
-    - name: Executing remote  command
+    - name: Build bot image
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}  
         port: ${{ secrets.PORT }}
-        script: echo "hello" > /home/bot-deploy/test-folder/sample.txt
+        script: docker-compose build
+        
+    - name: Down/Up container
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}  
+        port: ${{ secrets.PORT }}
+        script: docker-compose down && docker-compose up -d
         
