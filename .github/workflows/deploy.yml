@@ -40,5 +40,5 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}  
         port: ${{ secrets.PORT }}
-        script: /home/bot-deploy/python-bot && docker-compose down && docker-compose up -d
+        script: cd /home/bot-deploy/python-bot && docker-compose down && docker-compose up -d
         
