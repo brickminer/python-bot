@@ -20,7 +20,8 @@ services:
       MYSQL_PASSWORD: localbot
       MYSQL_DATABASE: localbot
     volumes:
-      - bot-db:/var/lib/mysql  
+      - bot-mysql-data:/var/lib/mysql 
+      - ./data/mysql:/docker-entrypoint-initdb.d 
   
   bot-adminer:
     container_name: bot-adminer
@@ -29,4 +30,5 @@ services:
       - 8081:8080    
 
 volumes:
-  bot-db:
+  bot-mysql-data:
+    driver: local
