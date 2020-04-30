@@ -6,7 +6,7 @@ from datetime import datetime
 
 import settings
 
-engine = create_engine(URL(**settings.DATABASE), echo=False)
+engine = create_engine(URL(**settings.DATABASE), echo=bool(settings.DEBUG_QUERIES))
 
 Base = declarative_base()
 

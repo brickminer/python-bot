@@ -9,6 +9,4 @@ DATABASE = {
     'database': environ.get('MYSQL_DB')
 }
 
-DEBUG = {
-    'queries': environ.get("DEBUG_QUERIES") == 1
-} 
+DEBUG_QUERIES = environ.get("DEBUG_QUERIES") == 'on'
