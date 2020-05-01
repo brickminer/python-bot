@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    
+    - name: Create File
+      uses: finnp/create-file-action@1.0.0
+      with:
+        file_name = ".env"
+        file_data = ${{ secrets.ENV_FILE }}
 
     - name: Copy file via scp
       uses: appleboy/scp-action@master
