@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.engine.url import URL
 from datetime import datetime
-
+from formatters import format_currency, format_text
 import database
 
 DeclarativeBase = declarative_base()
@@ -57,9 +57,24 @@ class LegoSet(DeclarativeBase):
         return session.query(LegoSet).filter(or_(name_filter, number_filter)).limit(10).all()            
 
 
-    def save(self):
+    def create(self):
         Session = sessionmaker(bind=LegoSet.engine)
         session = Session()
         session.add(self)
         session.commit()
         session.close
+
+
+    def set_info(self):
+        template = "Set Number: {}\nName: {}\nParts: {}\nMinifigs: {}\nYear: {}\nUS Price: {}\nEU Price: {}\nUK Price: {}"
+
+        return template.format(
+            format_text(self.number), 
+            format_text(self.name), 
+            format_text(self.pieces), 
+            format_text(self.minifigs), 
+            format_text(self.year),
+            format_currency(self.us_price),
+            format_currency(self.eu_price),
+            format_currency(self.uk_price) 
+        )    
