@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     
-    - name: Create File
+    - name: Create Env File
       uses: finnp/create-file-action@1.0.0
       env:
         FILE_NAME: ".env"
