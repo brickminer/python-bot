@@ -7,7 +7,7 @@ from emoji import emojize
 from os import environ
 from babel.numbers import format_decimal
 
-from models import search_lego_set
+from models import LegoSet
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -28,8 +28,8 @@ def inlinequery(update, context):
 
     results = []
     if len(query) > 3:
-        lego_sets = search_lego_set(query)
-        if lego_sets.count() > 0:
+        lego_sets = LegoSet.search(query)
+        if len(lego_sets) > 0:
             for lego_set in lego_sets:
                 set_info = get_set_info(lego_set)    
 

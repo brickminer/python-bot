@@ -1,16 +1,16 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Float, or_
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, or_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.engine.url import URL
 from datetime import datetime
 
-import settings
+import database
 
-engine = create_engine(URL(**settings.DATABASE), echo=bool(settings.DEBUG_QUERIES))
+DeclarativeBase = declarative_base()
 
-Base = declarative_base()
+class LegoSet(DeclarativeBase):
+    engine = database.get_engine()
 
-class LegoSet(Base):
     __tablename__ = 'sets'
     id = Column('id', Integer, primary_key=True)
     number = Column('number', String(20))
@@ -37,29 +37,29 @@ class LegoSet(Base):
     updated	= Column('updated', DateTime, nullable=True)
 
     def __repr__(self):
-        return '<Id {} Name {} Number {}>'.format(self.id, self.name, self.number)        
+        return '<Id {} Name {} Number {}>'.format(self.id, self.name, self.number)
 
 
-def create_tables():
-    Base.metadata.create_all(bind=engine)   
+    def all():
+        Session = sessionmaker(bind=LegoSet.engine)
+        session = Session()
+
+        return session.query(LegoSet).all()
 
 
-def save(item):
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    session.add(item)
-    session.commit()
-    session.close
+    def search(text):
+        Session = sessionmaker(bind=LegoSet.engine)
+        session = Session()
 
-def fetch_all(class_name):
-    Session = sessionmaker(bind=engine)
-    session = Session()
+        name_filter = LegoSet.name.like('%' + text + '%')
+        number_filter = LegoSet.number.like('%' + text + '%')
 
-    return session.query(class_name).all() 
+        return session.query(LegoSet).filter(or_(name_filter, number_filter)).limit(10).all()            
 
 
-def search_lego_set(search):
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    return session.query(LegoSet).filter(or_(LegoSet.name.like('%' + search + '%'), LegoSet.number.like('%' + search + '%'))).limit(10)
+    def save(self):
+        Session = sessionmaker(bind=LegoSet.engine)
+        session = Session()
+        session.add(self)
+        session.commit()
+        session.close
