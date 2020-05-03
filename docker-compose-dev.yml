@@ -2,7 +2,7 @@ version: '3'
 services:
   bot-python:
     container_name: bot-python
-    build: .
+    build: ./docker
     volumes:
       - ./:/usr/src/app
     env_file:

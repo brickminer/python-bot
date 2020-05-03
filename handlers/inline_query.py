@@ -15,7 +15,7 @@ def handle(update, context):
 
                 if lego_set.is_blocked():
                     lego_set.image = meme.image_link()
-                    set_info = meme.bad_text()
+                    set_info = meme.bad_text(lego_set.name)
 
                 results.append(
                     InlineQueryResultPhoto(

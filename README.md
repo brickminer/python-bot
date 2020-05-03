@@ -1,6 +1,6 @@
 # Brickminer Bot
 
-Lego information bot for Telegram writen in Python
+Lego information bot for Telegram writen in Python.
 
 ## Pre Requistes
 
@@ -14,7 +14,7 @@ Lego information bot for Telegram writen in Python
 ```bash
 virtualenv bot-env
 source bot-env/bin/activate
-pip install -r requirements.txt
+pip install -r docker/requirements.txt
 ```
 
 Rename your `.env.dist` to `.env`
@@ -23,7 +23,7 @@ Rename your `.env.dist` to `.env`
 mv `.env.dist` `.env`
 ```
 
-Fill your database credentials and Telegram API token into your `.env` file.
+Fill your database credentials and Telegram API token into your `.env` file. All configurations are read from this file.
 
 ## Running locally (Docker)
 
@@ -37,7 +37,7 @@ docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
 docker-compose up -d
 ```
 
-## Running without Docker
+## Running with localenv
 
 ```bash
 python bot.py

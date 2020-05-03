@@ -10,10 +10,10 @@ image: list = [
 ]
 
 messages: list = [
-    'This set is pure crap!',
-    'In a scale of 1 to 10, I give this a 3!',
-    'Seriously? This set don\'t worth the bytes spent searching it!',
-    'Just fuck off, this is pure trash!',
+    '{} is pure crap!',
+    'In a scale of 1 to 10, I give {} a 3!',
+    'Seriously? {} don\'t worth the bytes spent searching it!',
+    'Just fuck off, {} is pure trash!',
 ]
 
 
@@ -21,5 +21,5 @@ def image_link() -> str:
     return random.choice(image)
 
 
-def bad_text() -> str:
-    return random.choice(messages)
+def bad_text(name: str) -> str:
+    return random.choice(messages).format(name)
