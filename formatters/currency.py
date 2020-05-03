@@ -1,16 +1,9 @@
 from babel.numbers import format_decimal
 
-NOT_AVAILABLE = "N/A"
+NOT_AVAILABLE: str = "N/A"
 
 
-def format_text(value):
-    if value is None:
-        return NOT_AVAILABLE
-
-    return value
-
-
-def format_currency(value):
+def format(value: str) -> str:
     if value is None:
         return NOT_AVAILABLE
 

@@ -9,7 +9,10 @@ DATABASE = {
     'database': environ.get('MYSQL_DB')
 }
 
+
+TELEGRAM_TOKEN = environ.get("TELEGRAM_TOKEN")
 DEBUG_QUERIES = environ.get("DEBUG_QUERIES") == 'on'
+
 
 if environ.get("BLOCKED_SETS") is not None:
     BLOCKED_SETS = environ.get("BLOCKED_SETS").split(',')

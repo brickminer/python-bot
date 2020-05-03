@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.engine.url import URL
 from datetime import datetime
-from formatters import format_currency, format_text
+from formatters import text, currency
 
 import settings
 import database
@@ -68,14 +68,14 @@ class LegoSet(DeclarativeBase):
         template = "Set Number: {}\nName: {}\nParts: {}\nMinifigs: {}\nYear: {}\nUS Price: {}\nEU Price: {}\nUK Price: {}"
 
         return template.format(
-            format_text(self.number),
-            format_text(self.name),
-            format_text(self.pieces),
-            format_text(self.minifigs),
-            format_text(self.year),
-            format_currency(self.us_price),
-            format_currency(self.eu_price),
-            format_currency(self.uk_price)
+            text.format(self.number),
+            text.format(self.name),
+            text.format(self.pieces),
+            text.format(self.minifigs),
+            text.format(self.year),
+            currency.format(self.us_price),
+            currency.format(self.eu_price),
+            currency.format(self.uk_price)
         )
 
     def is_blocked(self):
