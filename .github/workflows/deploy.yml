@@ -5,7 +5,7 @@ name: CI
 on:
   push:
     branches: [ master ]
-  pull_request:
+  release:
     branches: [ master ]
 
 jobs:
@@ -13,7 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-
+    
+    - name: Create Env File
+      uses: finnp/create-file-action@1.0.0
+      env:
+        FILE_NAME: ".env"
+        FILE_DATA: ${{ secrets.ENV_FILE }}
+    
     - name: Copy file via scp
       uses: appleboy/scp-action@master
       with:
