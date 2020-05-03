@@ -4,6 +4,8 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.engine.url import URL
 from datetime import datetime
 from formatters import format_currency, format_text
+
+import settings
 import database
 
 DeclarativeBase = declarative_base()
@@ -75,3 +77,12 @@ class LegoSet(DeclarativeBase):
             format_currency(self.eu_price),
             format_currency(self.uk_price)
         )
+
+    def is_blocked(self):
+        blocked_sets = settings.BLOCKED_SETS
+
+        for blocked_set in blocked_sets:
+            if blocked_set in self.number:
+                return True
+
+        return False

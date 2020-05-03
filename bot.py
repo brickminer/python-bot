@@ -5,6 +5,8 @@ from emoji import emojize
 from os import environ
 
 from models import LegoSet
+from meme_generator import image_link, bad_text
+import settings
 
 
 class Bot():
@@ -12,14 +14,28 @@ class Bot():
         self.logger = logger
 
     def start(self, update, context):
-        cake = emojize(":imp:", use_aliases=True)
-        update.message.reply_text(
-            'Welcome to the Brickminer bot. I\'m sorry but you will never be able to get info for the set 60115 ' + cake)
+        evil = emojize(":imp:", use_aliases=True)
+        blocked_list = ", ".join(settings.BLOCKED_SETS)
+
+        text = "Welcome to the Brickminer bot!"
+
+        if settings.BLOCKED_SETS:
+            text = text + \
+                f"\nI'm sorry but you will never be able to get info for the {blocked_list}, they are {evil}"
+
+        update.message.reply_text(text)
 
     def help(self, update, context):
-        cake = emojize(":imp:", use_aliases=True)
-        update.message.reply_text(
-            'I\'m sorry but you will never be able to get info for the set 60115 ' + cake)
+        evil = emojize(":imp:", use_aliases=True)
+        blocked_list = ", ".join(settings.BLOCKED_SETS)
+
+        text = "To search for a set, just type @brickminerbot + set number or set name. You should be presented to a list of results, just select the one you wan't to show."
+
+        if settings.BLOCKED_SETS:
+            text = text + \
+                f"\nI'm sorry but you will never be able to get info for the {blocked_list}, they are {evil}"
+
+        update.message.reply_text(text)
 
     def inline_query(self, update, context):
         self.logger.info(update)
@@ -31,6 +47,10 @@ class Bot():
             if len(lego_sets) > 0:
                 for lego_set in lego_sets:
                     set_info = lego_set.set_info()
+
+                    if lego_set.is_blocked():
+                        lego_set.image = image_link()
+                        set_info = bad_text()
 
                     results.append(
                         InlineQueryResultPhoto(

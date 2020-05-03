@@ -10,3 +10,8 @@ DATABASE = {
 }
 
 DEBUG_QUERIES = environ.get("DEBUG_QUERIES") == 'on'
+
+if environ.get("BLOCKED_SETS") is not None:
+    BLOCKED_SETS = environ.get("BLOCKED_SETS").split(',')
+else:
+    BLOCKED_SETS = []
