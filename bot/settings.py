@@ -1,14 +1,9 @@
+from dotenv import load_dotenv
 from os import environ
 
-DATABASE = {
-    'drivername': 'mysql+mysqldb',
-    'host': environ.get('MYSQL_HOST'),
-    'port': environ.get('MYSQL_PORT'),
-    'username': environ.get('MYSQL_USER'),
-    'password': environ.get('MYSQL_PASS'),
-    'database': environ.get('MYSQL_DB')
-}
+load_dotenv()
 
+DB_CONNECTION = environ.get('DB_CONNECTION')
 TELEGRAM_TOKEN = environ.get("TELEGRAM_TOKEN")
 DEBUG_QUERIES = environ.get("DEBUG_QUERIES") == 'on'
 

@@ -1,19 +1,16 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, or_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.engine.url import URL
 from datetime import datetime
-from formatters import text, currency
+from ..formatters import text, currency
+from ..settings import BLOCKED_SETS
 
-import settings
-import database
+from .engine import engine
 
 DeclarativeBase = declarative_base()
 
 
 class LegoSet(DeclarativeBase):
-    engine = database.get_engine()
-
     __tablename__ = 'sets'
     id = Column('id', Integer, primary_key=True)
     number = Column('number', String(20))
@@ -26,9 +23,9 @@ class LegoSet(DeclarativeBase):
     year = Column('year', Integer, nullable=True)
     pieces = Column('pieces', Integer, nullable=True)
     minifigs = Column('minifigs', Integer, nullable=True)
-    uk_price = Column('uk_price', Float(5, 2), nullable=True)
-    us_price = Column('us_price', Float(5, 2), nullable=True)
-    eu_price = Column('eu_price', Float(5, 2), nullable=True)
+    uk_price = Column('uk_price', Float(5, 2), nullable=True, default=None)
+    us_price = Column('us_price', Float(5, 2), nullable=True, default=None)
+    eu_price = Column('eu_price', Float(5, 2), nullable=True, default=None)
     packaging = Column('packaging', String(255), nullable=True)
     dimensions = Column('dimensions', String(255), nullable=True)
     weight = Column('weight', String(255), nullable=True)
@@ -43,13 +40,13 @@ class LegoSet(DeclarativeBase):
         return '<Id {} Name {} Number {}>'.format(self.id, self.name, self.number)
 
     def all():
-        Session = sessionmaker(bind=LegoSet.engine)
+        Session = sessionmaker(bind=engine)
         session = Session()
 
         return session.query(LegoSet).all()
 
     def search(text):
-        Session = sessionmaker(bind=LegoSet.engine)
+        Session = sessionmaker(bind=engine)
         session = Session()
 
         name_filter = LegoSet.name.like('%' + text + '%')
@@ -58,7 +55,7 @@ class LegoSet(DeclarativeBase):
         return session.query(LegoSet).filter(or_(name_filter, number_filter)).limit(10).all()
 
     def create(self):
-        Session = sessionmaker(bind=LegoSet.engine)
+        Session = sessionmaker(bind=engine)
         session = Session()
         session.add(self)
         session.commit()
@@ -79,10 +76,18 @@ class LegoSet(DeclarativeBase):
         )
 
     def is_blocked(self):
-        blocked_sets = settings.BLOCKED_SETS
+        blocked_sets = BLOCKED_SETS
 
         for blocked_set in blocked_sets:
             if blocked_set in self.number:
                 return True
 
         return False
+
+
+def create_tables():
+    DeclarativeBase.metadata.create_all(engine)
+
+
+def drop_tables():
+    DeclarativeBase.metadata.drop_all(engine)

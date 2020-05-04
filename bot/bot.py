@@ -1,6 +1,6 @@
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler
-from handlers import help, start, inline_query
-import settings
+from .handlers import help, start, inline_query
+from .settings import TELEGRAM_TOKEN
 import logging
 
 
@@ -13,7 +13,7 @@ class Bot():
                             update, context.error)
 
     def run(self):
-        updater = Updater(settings.TELEGRAM_TOKEN, use_context=True)
+        updater = Updater(TELEGRAM_TOKEN, use_context=True)
 
         dp = updater.dispatcher
         dp.add_handler(CommandHandler("start", start.handle))
