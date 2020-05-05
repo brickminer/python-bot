@@ -70,9 +70,9 @@ class LegoSet(DeclarativeBase):
             text.format(self.pieces),
             text.format(self.minifigs),
             text.format(self.year),
-            currency.format(self.us_price),
-            currency.format(self.eu_price),
-            currency.format(self.uk_price)
+            currency.format(self.us_price, currency.USD),
+            currency.format(self.eu_price, currency.EUR),
+            currency.format(self.uk_price, currency.GBP)
         )
 
     def is_blocked(self):

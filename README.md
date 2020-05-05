@@ -74,3 +74,10 @@ python cli.py -c create-tables
 ```
 
 You can find a sample SQLite database in `data/sample.db`
+
+## Tests
+To execute unit tests, just run
+
+```bash
+pytest
+```
