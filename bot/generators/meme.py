@@ -1,6 +1,6 @@
 import random
 
-image: list = [
+images: list = [
     'https://ih0.redbubble.net/image.488404858.0162/flat,550x550,075,f.jpg',
     'https://cdn11.bigcommerce.com/s-a9579/images/stencil/1280x1280/products/3932/17155/I_will_not_keep_calm_and_you_can_fuck_off__18812__38527.1454604401.jpg?c=2&imbypass=on?imbypass=on',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGSyKo_Z-nl7O41Lg0VJwS8J7Tvd5S7lBYZevrDvjUkaEb8Lv0&usqp=CAU',
@@ -18,8 +18,8 @@ messages: list = [
 
 
 def image_link() -> str:
-    return random.choice(image)
+    return random.choice(images)
 
 
-def bad_text(name: str) -> str:
-    return random.choice(messages).format(name)
+def bad_text(set_name: str) -> str:
+    return random.choice(messages).format(set_name)

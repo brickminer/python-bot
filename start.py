@@ -1,9 +1,6 @@
 import logging
 from bot.bot import Bot
-
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-logger: logging.Logger = logging.getLogger(__name__)
+from bot import logger
 
 
 def main():
