@@ -14,7 +14,7 @@ Lego information bot for Telegram writen in Python.
 ```bash
 virtualenv bot-env
 source bot-env/bin/activate
-pip install -r docker/requirements.txt
+pip install -r requirements.txt
 ```
 
 Rename your `.env.dist` to `.env`
