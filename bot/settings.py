@@ -4,7 +4,7 @@ from os import environ
 load_dotenv()
 
 
-class Settings():
+class Setting():
     def db_connection(self) -> str:
         return environ.get('DB_CONNECTION') or ""
 
