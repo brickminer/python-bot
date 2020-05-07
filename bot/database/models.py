@@ -2,12 +2,13 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, or_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
-from ..formatters import text, currency
-from ..settings import BLOCKED_SETS
+from bot.formatters import text, currency
+from bot.settings import Settings
 
 from .engine import engine
 
 DeclarativeBase = declarative_base()
+settings = Settings()
 
 
 class LegoSet(DeclarativeBase):
@@ -76,9 +77,7 @@ class LegoSet(DeclarativeBase):
         )
 
     def is_blocked(self):
-        blocked_sets = BLOCKED_SETS
-
-        for blocked_set in blocked_sets:
+        for blocked_set in settings.blocked_sets():
             if blocked_set in self.number:
                 return True
 

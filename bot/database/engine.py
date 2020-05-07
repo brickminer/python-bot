@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
-from ..settings import DB_CONNECTION, DEBUG_QUERIES
+from bot.settings import Settings
 
-
-engine = create_engine(DB_CONNECTION,
-                       echo=bool(DEBUG_QUERIES))
+settings = Settings()
+engine = create_engine(settings.db_connection(), echo=settings.debug_queries())

@@ -1,6 +1,6 @@
 from telegram import InlineQueryResultPhoto
-from ..database.models import LegoSet
-from ..generators import meme
+from bot.database.models import LegoSet
+from bot.generators import meme
 
 
 def handle(update, context):
