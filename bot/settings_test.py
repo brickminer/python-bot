@@ -1,5 +1,5 @@
 from .settings import Settings
-from mock import patch, MagicMock
+from mock import patch
 
 
 @patch("os.environ.get", return_value="conn_string")

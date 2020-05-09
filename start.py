@@ -1,11 +1,13 @@
 import logging
 from bot.bot import Bot
-from bot.logger import logger
+from bot.logger import Logger
 
 
 def main():
-    logger.debug('Initializing Telegram Bot')
+    logger = Logger()
     bot = Bot()
+
+    logger.getLogger().debug('Initializing Telegram Bot')
     bot.run()
 
 
