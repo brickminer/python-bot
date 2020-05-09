@@ -1,6 +1,11 @@
 from telegram import InlineQueryResultPhoto
 from bot.database.models import LegoSet
 from bot.generators import meme
+from bot.factory.iqrp_factory import IQRP_Factory
+from bot.generators.meme import Meme
+
+
+factory = IQRP_Factory(Meme())
 
 
 def handle(update, context):
@@ -8,24 +13,9 @@ def handle(update, context):
 
     results = []
     if len(query) > 3:
-        lego_sets = LegoSet.search(query)
-        if len(lego_sets) > 0:
-            for lego_set in lego_sets:
-                set_info = lego_set.set_info()
-
-                if lego_set.is_blocked():
-                    lego_set.image = meme.image_link()
-                    set_info = meme.bad_text(lego_set.name)
-
-                results.append(
-                    InlineQueryResultPhoto(
-                        id=lego_set.id,
-                        title=lego_set.number,
-                        description=set_info,
-                        caption=set_info,
-                        photo_url=lego_set.image,
-                        thumb_url=lego_set.image
-                    )
-                )
+        sets = LegoSet.search(query)
+        if len(sets) > 0:
+            for lego_set in sets:
+                results.append(factory.create(lego_set))
 
             update.inline_query.answer(results)
