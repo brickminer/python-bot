@@ -13,7 +13,7 @@ def test_handle_without_blocked_sets(update_mock, message_mock, blocked_sets_moc
     help.handle(update_mock, {})
 
     message_mock.reply_text.assert_called_once_with(
-        "To search for a set, just type @brickminerbot + set number or set name. You should be presented to a list of results, just select the one you wan't to show.")
+        "To search for a set, just type @brickminerbot + set number or set name. You should be presented to a list of results, just select the one you want to show.")
 
 
 @patch("bot.settings.Settings.blocked_sets")
@@ -26,4 +26,4 @@ def test_handle_with_blocked_sets(update_mock, message_mock, blocked_sets_mock):
     help.handle(update_mock, {})
 
     message_mock.reply_text.assert_called_once_with(
-        "To search for a set, just type @brickminerbot + set number or set name. You should be presented to a list of results, just select the one you wan't to show.\nI'm sorry but you will never be able to get info for the 111, 222, they are 👿")
+        "To search for a set, just type @brickminerbot + set number or set name. You should be presented to a list of results, just select the one you want to show.\nI'm sorry but you will never be able to get info for the 111, 222, they are 👿")

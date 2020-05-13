@@ -1,6 +1,6 @@
 # Brickminer Bot
 
-Lego information bot for Telegram writen in Python.
+Lego information bot for Telegram written in Python.
 
 ## Pre Requistes
 
@@ -45,11 +45,11 @@ python bot.py
 
 ## Development
 
-This small application was created using VSCode as IDE. I would suggest this [video](https://www.youtube.com/watch?v=W--_EOzdTHk) teaching how to setup a development environment properly
+This small application was created using VSCode as IDE. I would suggest this [video](https://www.youtube.com/watch?v=W--_EOzdTHk) teaching how to setup a development environment properly.
 
 ## Preparing Database
 
-By default, the bot is configured to get data dom SQLITE, but you can configure basicaly any database compatible with SQLAlchemy library. To change database, you need to update your `.env` file with a proper connection string
+By default, the bot is configured to get data from SQLITE, but you can configure basicaly any database compatible with SQLAlchemy library. To change database, you need to update your `.env` file with a proper connection string.
 
 SQLite
 ```bash
@@ -63,7 +63,7 @@ DB_CONNECTION=mysql+mysqldb://user:pass@localhost:3306/db
 
 ### Creating database
 
-In case you don't have a database created, you can execute the following commands
+In case you don't have a database created, you can execute the following commands:
 ```bash
 python cli.py -c create-tables
 ```
@@ -73,11 +73,10 @@ To Drop tables, execute:
 python cli.py -c create-tables
 ```
 
-You can find a sample SQLite database in `data/sample.db`
+You can find a sample SQLite database in `data/sample.db`.
 
 ## Tests
 To execute unit tests, just run
-
 ```bash
 pytest
 ```
