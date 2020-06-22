@@ -1,6 +1,4 @@
-from telegram import InlineQueryResultPhoto
 from bot.database.models import LegoSet
-from bot.generators import meme
 from bot.factory.iqrp_factory import IQRP_Factory
 from bot.factory.not_found_factory import NotFoundFactory
 from bot.generators.meme import Meme
@@ -20,5 +18,5 @@ def handle(update, context):
 
             update.inline_query.answer(results)
         else:
-            response = [not_found_factory.create()]
+            response = [not_found_factory.create(query)]
             update.inline_query.answer(response)
